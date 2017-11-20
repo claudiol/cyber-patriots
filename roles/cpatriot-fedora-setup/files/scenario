@@ -1,0 +1,32 @@
+You have been hired as a security consultant for CompanyXYZ.
+
+Your job is to secure this Fedora 26 computer.
+
+Company policy specifies that all user accounts must be password protected.
+The company strictly forbids any media files and "hacking tools" on any company
+computer.
+
+This computer is to be used as an SSH access point into our network, so any
+authorized user should be able to log in remotely. We would also like to host
+our website on this computer, although it is unfinished at the moment.
+
+Required Services:
+    sshd
+    httpd
+
+root pass = root
+Authorized Administrators:
+    leon      pass = defsecisfuntoo (This is you!)
+    jack      pass = jack
+
+Authorized Users:
+    tyler
+    alex
+    connor
+    andrew
+
+** TODO: You will find your score report on the desktop of "leon" (you). It is an HTML
+document will be updated every ten seconds (you need to refresh the page).
+
+There are about 10 vulnerabilities. Note that there are probably more, but not all
+will be scored. Don't think too hard :)

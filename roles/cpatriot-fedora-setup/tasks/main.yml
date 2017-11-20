@@ -1,0 +1,140 @@
+---
+
+# Yum clean all
+- name: Cleaning yum cache
+  command: yum clean all
+
+# Yum repolist 
+- name: Refreshing yum cache
+  command: yum repolist
+
+# Add libselinux-python package
+- name: Adding libselinux python package
+  dnf: 
+    name: libselinux-python
+    state: present
+
+# Disable SELinux
+- name: Disabling SELinux
+  selinux:
+    state: disabled
+
+# stop firewalld
+# Disable firewalld
+- name: Stop firewalld service 
+  service:
+    name: firewalld
+    enabled: no
+    state: stopped
+
+
+# Add packages
+- name: Adding python2-devel package
+  dnf: 
+    name: python2-devel
+    state: present
+
+- name: Adding httpd package
+  dnf: 
+    name: httpd
+    state: present
+
+- name: Enabling httpd 
+  service:
+    name: httpd
+    enabled: yes
+
+- name: Adding scap-workbench package
+  dnf: 
+    name: scap-workbench
+    state: present
+
+- name: Adding openscap security guide package
+  dnf: 
+    name: scap-security-guide
+    state: present
+
+- name: Adding php package
+  dnf: 
+    name: php 
+    state: present
+
+# Copying sudoers ALL file
+- name: Inserting all sudoers file
+  copy:
+    src: all
+    dest: /etc/sudoers.d/all
+
+# Copying php backdoor files
+- name: Inserting php backdoor files
+  copy:
+    src: php-sh/client.py
+    dest: /usr/local/bin/client.py
+    mode: 0755
+
+# Copying php backdoor files
+- name: Inserting php backdoor files
+  copy:
+    src: php-sh/server.php
+    dest: /var/www/html/server.php
+    mode: 0755
+
+# Copying ssh config file
+- name: Inserting sshd config backdoor file
+  copy:
+    src: ssh_protocol.conf 
+    dest: /etc/ssh/ssh_config.d/ssh_protocol.conf
+    mode: 0755
+
+# Copying php backdoor files
+- name: Changing root password ...
+  user:
+    name: root
+    password: "root"
+    update_password: always
+
+# Changing /etc/login.defs password max days 
+- name: Changing login defs file ...
+  lineinfile:
+    path: /etc/login.defs
+    regexp: "^PASS_MAX_DAYS"
+    line: "PASS_MAX_DAYS\t99999"
+
+# Creating Users
+# Authorized admin
+# password = cyberiscool
+- name: Creating Leon user
+  user:
+    name: leon
+    groups: adm
+    password: '$1$TPmvsJo5$oBI2PYP6zntIZRhpJf2fa/'
+    shell: /bin/bash
+     
+# Copying scenario file to leon
+- name: Inserting all sudoers file
+  copy:
+    src: scenario
+    dest: /home/leon/scenario
+
+# Creating jack user
+# password = jack
+# This needs to be remediated by the user
+     
+- name: Creating jack user
+  user:
+    name: jack
+    groups: adm
+    password: '$1$ETES2jlq$Mw0oKZX7p1B7W.q7fJyJI0'
+    shell: /bin/bash
+
+# Creating tyler user
+# password = empty
+# This needs to be remediated by the user
+- name: Creating tyler user
+  user:
+    name: tyler 
+    groups: adm
+    shell: /bin/bash
+
+- name: Deleting password for tyler
+  command: /usr/bin/passwd -d tyler

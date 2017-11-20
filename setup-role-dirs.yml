@@ -1,0 +1,68 @@
+---
+#
+# This sets up the directory structure for developing a role
+#
+- hosts: localhost
+
+  tasks:
+    - name: Creating Ansible roles directory structure
+      file: 
+        path: roles
+        state: directory
+        mode: 0755
+    - name: Creating Ansible cpatriot-fedora-setup role directory 
+      file: 
+        path: roles/cpatroit-fedora-setup
+        state: directory
+        mode: 0755
+    - name: Creating Ansible defaults directory 
+      file: 
+        path: roles/cpatroit-fedora-setup/defaults
+        state: directory
+        mode: 0755
+    - name: Creating Ansible main.yml for defaults
+      file: 
+        path: roles/cpatroit-fedora-setup/defaults/main.yml
+        state: touch
+        mode: 0755
+    - name: Creating Ansible files directory 
+      file: 
+        path: roles/cpatroit-fedora-setup/files
+        state: directory
+        mode: 0755
+    - name: Creating Ansible handlers directory 
+      file: 
+        path: roles/cpatroit-fedora-setup/handlers
+        state: directory
+        mode: 0755
+    - name: Creating Ansible main.yml for defaults
+      file: 
+        path: roles/cpatroit-fedora-setup/handlers/main.yml
+        state: touch
+        mode: 0755
+    - name: Creating Ansible meta directory 
+      file: 
+        path: roles/cpatroit-fedora-setup/meta
+        state: directory
+        mode: 0755
+    - name: Creating Ansible main.yml for defaults
+      file: 
+        path: roles/cpatroit-fedora-setup/meta/main.yml
+        state: touch
+        mode: 0755
+    - name: Creating Ansible tasks directory 
+      file: 
+        path: roles/cpatroit-fedora-setup/tasks
+        state: directory
+        mode: 0755
+    - name: Creating Ansible main.yml for defaults
+      file: 
+        path: roles/cpatroit-fedora-setup/tasks/main.yml
+        state: touch
+        mode: 0755
+    - name: Creating Ansible files directory 
+      file: 
+        path: roles/cpatroit-fedora-setup/templates
+        state: directory
+        mode: 0755
+
