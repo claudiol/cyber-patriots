@@ -86,11 +86,11 @@
     dest: /etc/ssh/ssh_config.d/ssh_protocol.conf
     mode: 0755
 
-# Copying php backdoor files
+# Changing root password
 - name: Changing root password ...
   user:
     name: root
-    password: "root"
+    password: "$1$mP2tXbdv$64IXwnNqA9MO17xRK9mLt/"
     update_password: always
 
 # Changing /etc/login.defs password max days 
