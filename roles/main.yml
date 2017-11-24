@@ -1,5 +1,9 @@
 ---
 - hosts: all
+  gather_facts: no
+
+  vars_files:
+    - cpatriot-fedora-setup/defaults/password.yml
 
   roles:
     - cpatriot-fedora-setup
