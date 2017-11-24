@@ -1,1 +1,3 @@
 localhost ansible_connection=local
+[cyber-patriots]
+192.168.124.75
