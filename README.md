@@ -3,6 +3,8 @@
 1 - Download Fedora 26/27
 https://getfedora.org/en/workstation/download/
 
+    TIP: Press on the Download ICON at the top of the page to download the ISO file.
+
 2 - Install Fedora 26/27
   - Nothing special.  Use the ISO file since it's more familiar. Create a Cyber Patriot (cpatriot) user id and assign the password "cyber-patriot" to both root and the Cyber Patriot user.
 
@@ -10,7 +12,7 @@ https://getfedora.org/en/workstation/download/
    systemctl enable sshd
    systemctl start sshd
 
-NOTE: Make sure you are **root** on your local machine before executing the following commands.  The Ansible Playbook will check for the existence of an ssh key for the **root** user on your local machine and generate one if needed.
+TIP: Make sure you are **root** on your local machine before executing the following commands.  The Ansible Playbook will check for the existence of an ssh key for the **root** user on your local machine and generate one if needed.
 
 5 - Become the root user on your local machine
 ````
@@ -44,7 +46,7 @@ r_password: "cyber-patriot"
 
 Save the file. 
 
-NOTE: In VI, or VIM, you can save the file by typing the **:wq** command.
+TIP: In VI, or VIM, you can save the file by typing the **:wq** command.
 
 9 - Now move the file to the roles/cpatriot-fedora-setup/defaults/ directory.
 
