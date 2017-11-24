@@ -12,7 +12,7 @@ https://getfedora.org/en/workstation/download/
    systemctl enable sshd
    systemctl start sshd
 
-TIP: Make sure you are **root** on your local machine before executing the following commands.  The Ansible Playbook will check for the existence of an ssh key for the **root** user on your local machine and generate one if needed.
+   TIP: Make sure you are **root** on your local machine before executing the following commands.  The Ansible Playbook will check for the existence of an ssh key for the **root** user on your local machine and generate one if needed.
 
 5. Become the root user on your local machine
 ````
@@ -46,17 +46,43 @@ r_password: "cyber-patriot"
 
 Save the file. 
 
-TIP: In VI, or VIM, you can save the file by typing the **:wq** command.
+   TIP: In VI, or VIM, you can save the file by typing the **:wq** command.
 
 9. Now move the file to the roles/cpatriot-fedora-setup/defaults/ directory.
 ```
 [root@fedora26 cyber-patriots]# mv password.yml roles/cpatriot-fedora-setup/defaults/
 ```
 
-10. From the **cyber-patriots* subdirectory run the  cpatriot-fedora-setup Ansible role from your machine like so:
+10 - Edit the inventory file and add the IP address for the Fedora VM that you created.  To find out the IP address login locally to the VM using the console and type the following command:
+
+```
+[root@desktop ~]# ip a
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host 
+       valid_lft forever preferred_lft forever
+2: ens3: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 52:54:00:4b:4c:cf brd ff:ff:ff:ff:ff:ff
+    inet 192.168.124.75/24 brd 192.168.124.255 scope global dynamic ens3
+       valid_lft 2967sec preferred_lft 2967sec
+    inet6 fe80::c1c1:296f:2cd2:9b1f/64 scope link 
+       valid_lft forever preferred_lft forever
+[root@desktop ~]# 
+```
+
+The inventory file should look like this:
+```
+localhost ansible_connection=local
+[cyber-patriots]
+192.168.124.75
+```
+
+11. From the **cyber-patriots* subdirectory run the  cpatriot-fedora-setup Ansible role from your machine like so:
 
 ````
-root@fedora26 roles]# ansible-playbook --ask-vault-pass main.yml 
+root@fedora26 roles]# ansible-playbook -i ./inventory --ask-vault-pass main.yml 
 Vault password: 
 
 PLAY [all] ***************************************************************************
@@ -146,4 +172,4 @@ PLAY RECAP *********************************************************************
 
 [root@fedora26 roles]# 
 ````
-11. Now reboot the VM
+12. Now reboot the VM
