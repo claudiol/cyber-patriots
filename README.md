@@ -1,27 +1,27 @@
 # Setup Instructions
 
-1 - Download Fedora 26/27
+1. Download Fedora 26/27
 https://getfedora.org/en/workstation/download/
 
     TIP: Press on the Download ICON at the top of the page to download the ISO file.
 
-2 - Install Fedora 26/27
+2. Install Fedora 26/27
   - Nothing special.  Use the ISO file since it's more familiar. Create a Cyber Patriot (cpatriot) user id and assign the password "cyber-patriot" to both root and the Cyber Patriot user.
 
-3 - Make sure sshd is running on the VM. Login locally through the VM console as root, open a terminal and run the following commands:
+3. Make sure sshd is running on the VM. Login locally through the VM console as root, open a terminal and run the following commands:
    systemctl enable sshd
    systemctl start sshd
 
 TIP: Make sure you are **root** on your local machine before executing the following commands.  The Ansible Playbook will check for the existence of an ssh key for the **root** user on your local machine and generate one if needed.
 
-5 - Become the root user on your local machine
+5. Become the root user on your local machine
 ````
 [claudiol@fedora26 ~]$ su - 
 Password: 
 [root@fedora26 ~]# 
 ````
 
-6 - Clone the cyber-patriot repository from github.com
+6. Clone the cyber-patriot repository from github.com
 ````
 [root@fedora26 ~]# git clone https://github.com/claudiol/cyber-patriots.git
 Cloning into 'cyber-patriots'...
@@ -32,9 +32,9 @@ Unpacking objects: 100% (63/63), done.
 [root@fedora26 ~]# 
 ````
 
-7 - cd to the cyber-patriots directory
+7. cd to the cyber-patriots directory
 
-8 - Create an encrypted password.yml file using the ansible-vault command that containts the password for the Cyber Patriot VM. 
+8. Create an encrypted password.yml file using the ansible-vault command that containts the password for the Cyber Patriot VM. 
 ````
 [root@fedora26 roles]# ansible-vault create password.yml
 ````
@@ -48,9 +48,12 @@ Save the file.
 
 TIP: In VI, or VIM, you can save the file by typing the **:wq** command.
 
-9 - Now move the file to the roles/cpatriot-fedora-setup/defaults/ directory.
+9. Now move the file to the roles/cpatriot-fedora-setup/defaults/ directory.
+```
+[root@fedora26 cyber-patriots]# mv password.yml roles/cpatriot-fedora-setup/defaults/
+```
 
-10 - From the **cyber-patriots* subdirectory run the  cpatriot-fedora-setup Ansible role from your machine like so:
+10. From the **cyber-patriots* subdirectory run the  cpatriot-fedora-setup Ansible role from your machine like so:
 
 ````
 root@fedora26 roles]# ansible-playbook --ask-vault-pass main.yml 
@@ -143,4 +146,4 @@ PLAY RECAP *********************************************************************
 
 [root@fedora26 roles]# 
 ````
-11 - Now reboot the VM
+11. Now reboot the VM
