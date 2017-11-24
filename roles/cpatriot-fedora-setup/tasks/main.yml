@@ -1,5 +1,21 @@
 ---
 
+- name: Checking for ssh key existence 
+  connection: local
+  stat:
+    path: /root/.ssh/id_rsa.pub
+  register: p
+
+#
+# Generate key if it does not exist.  It will not override existing key
+#
+- name: Generating ssh key for root
+  connection: local
+  user:
+    name: root
+    generate_ssh_key: yes
+  when: p.stat.exists == False
+
 # Copy ssh id
 - name: Add ssh key
   connection: local
@@ -17,6 +33,10 @@
 # Yum repolist 
 - name: Refreshing yum cache
   command: yum repolist
+
+# Upgrade all packages
+- name: upgrade all packages
+  yum: name=* state=latest
 
 # Add libselinux-python package
 - name: Adding libselinux python package
