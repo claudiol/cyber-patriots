@@ -34,9 +34,15 @@
 - name: Refreshing yum cache
   command: yum repolist
 
+# Add packages
+- name: Adding python2-devel package
+  dnf: 
+    name: python2-devel
+    state: present
+
 # Upgrade all packages
 - name: upgrade all packages
-  yum: name=* state=latest
+  dnf: name=* state=latest
 
 # Add libselinux-python package
 - name: Adding libselinux python package
@@ -56,13 +62,6 @@
     name: firewalld
     enabled: no
     state: stopped
-
-
-# Add packages
-- name: Adding python2-devel package
-  dnf: 
-    name: python2-devel
-    state: present
 
 - name: Adding httpd package
   dnf: 
