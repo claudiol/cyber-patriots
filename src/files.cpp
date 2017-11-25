@@ -33,7 +33,7 @@ bool isStringInFile(const char *fileName, const char *searchString){
             return true;
         }
         else{
-            return false;
+            continue; //return false;
         }
     }
     return false;

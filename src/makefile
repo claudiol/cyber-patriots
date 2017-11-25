@@ -1,9 +1,9 @@
-OBJS = backdoor.o networking.o files.o serviceConfig.o sudoers.o users.o main.o
+OBJS = selinux.o backdoor.o networking.o files.o serviceConfig.o sudoers.o users.o main.o
 CC = g++
 DEBUG = -g
 CFLAGS = -Wall -c $(DEBUG)
 LFLAGS = -Wall $(DEBUG)
-BOOST = -lboost_system -lboost_filesystem
+BOOST = -lboost_system -lboost_filesystem -lselinux
 
 output: $(OBJS)
 	$(CC) $(LFLAGS) $(OBJS) $(BOOST) -o output
@@ -25,6 +25,9 @@ sudoers.o: sudoers.cpp sudoers.hpp files.hpp globals.hpp
 
 users.o: users.cpp users.hpp files.hpp globals.hpp
 	$(CC) $(CFLAGS) users.cpp
+
+selinux.o: selinux.cpp files.hpp globals.hpp
+	$(CC) $(CFLAGS) selinux.cpp
 
 main.o: main.cpp globals.hpp
 	$(CC) $(CFLAGS) main.cpp

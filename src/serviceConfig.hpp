@@ -4,5 +4,7 @@
 void rootLoginSSH(const char *searchString);
 void firewalldEnabled();
 void selinuxEnabled();
+void versionSSH( const char *searchString);
+void sshConfigFile(const char *fileName);
 
 #endif

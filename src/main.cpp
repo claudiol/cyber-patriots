@@ -8,9 +8,9 @@ int total = 0;
 
 int main(){
 
-    backdoor("/var/www/html/c99.php", "80");
-    backdoor("/home/cpatriot/test.txt");
+    backdoor("/var/www/html/server.php", "80");
     rootLoginSSH("PermitRootLogin yes");
+    versionSSH("Protocol 1");
     sudoersFile("/etc/sudoers.d/all");
     firewalldEnabled();
 
