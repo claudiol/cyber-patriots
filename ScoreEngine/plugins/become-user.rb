@@ -51,12 +51,12 @@ class UserCheck < MessagePlugin
     if canBecomeRoot == false
       
       begin
-        if Etc.getpwnam('claudiol')
+        if Etc.getpwnam('tyler')
 
           # Check tyler first ... he doesn't have a password
           PTY.spawn("su - tyler") do |r_f,w_f,pid|
             w_f.sync = true
-            r_f.expect(password_pat){ w_f.puts "\n\n\n" }
+            r_f.expect(password_pat, timeout=2){ w_f.puts "\n\n\n" }
           end
           checkUser = `whoami`
 
@@ -86,7 +86,7 @@ class UserCheck < MessagePlugin
           # Check jack next ... has a weak password
           PTY.spawn("su - jack") do |r_f,w_f,pid|
             w_f.sync = true
-            r_f.expect(password_pat){ w_f.puts "jack\n\n\n" }
+            r_f.expect(password_pat, timeout=2){ w_f.puts "jack\n\n\n" }
           end
           checkUser = `whoami`
   
