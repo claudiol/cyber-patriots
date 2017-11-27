@@ -80,6 +80,16 @@
     name: php 
     state: present
 
+- name: Adding ruby package
+  dnf: 
+    name: ruby
+    state: present
+
+- name: Adding ruby package
+  dnf: 
+    name: rubygem-json
+    state: present
+
 # Copying sudoers ALL file
 - name: Inserting all sudoers file
   copy:
