@@ -13,6 +13,7 @@ MessagePlugin.repository.each do |plugin|
 end
 
 totalPoints = 0
+maxPoints=0
 pluginResults.each do | key, value |
 
   puts "<pre>"
@@ -22,6 +23,7 @@ pluginResults.each do | key, value |
   puts "    Points: #{value['currentPoints']}"
   puts "</pre>"
   totalPoints += value['currentPoints']
+  maxPoints += value['totalPoints']
 end
 
-puts "Total Points: #{totalPoints}"
+puts "Total Points: #{totalPoints} out of #{maxPoints}"

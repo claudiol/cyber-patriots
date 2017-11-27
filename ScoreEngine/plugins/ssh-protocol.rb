@@ -28,7 +28,7 @@ class SshProtocol < MessagePlugin
   def checkSSHProtocol()
     # Check the config file
     if File.exists?("/etc/ssh/ssh_config.d/ssh_protocol.conf")
-      if File.readlines("/etc/ssh/ssh_config.d/ssh_protocol.conf").grep("/Protocol 2/") > 0
+      if File.readlines("/etc/ssh/ssh_config.d/ssh_protocol.conf").grep("/Protocol 2/").size > 0
         sshProtocolOk = true 
       else
         sshProtocolOk = false

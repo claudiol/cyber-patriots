@@ -31,7 +31,7 @@ class SELinux < MessagePlugin
     if File.readlines("/etc/selinux/config").grep(/SELINUXTYPE=targeted/).size > 0
       configOk = true 
     else
-      configOk - false
+      configOk = false
     end 
 
     # Check if SELinux is in enforce mode
