@@ -80,6 +80,8 @@ class ScoreEngine
       file=File.open("/var/www/html/index.html", 'w+') 
       pluginResults.each do | key, value |
       
+        file.write("<title>Cyber Patriots Apache HTTP Server on Fedora</title>\n")
+        file.wrire("<h1>Cyber Patriots Scoring Engine</h1>")
         file.write("<pre>\n")
         file.write( "    Plugin Name: #{key} \n")
         file.write( "    Description: #{value['description']}\n")
