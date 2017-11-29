@@ -110,7 +110,7 @@ class ScoreEngine
 #    exit if fork
 #    Process.setsid
 #    exit if fork
-    Dir.chdir "/home/claudiol/work/cyber-patriots/ScoreEngine"
+    Dir.chdir "/tmp/ScoreEngine"
   end
 
   def redirect_output
