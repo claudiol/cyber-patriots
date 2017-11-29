@@ -54,14 +54,16 @@ class UserCheck < MessagePlugin
         if Etc.getpwnam('tyler')
 
           # Check tyler first ... he doesn't have a password
-          PTY.spawn("su - tyler") do |r_f,w_f,pid|
+          PTY.spawn("/usr/sbin/runuser -u cpatriot su - tyler") do |r_f,w_f,pid|
             w_f.sync = true
-            r_f.expect(password_pat, timeout=2){ w_f.puts "\n\n\n" }
+            r_f.expect(password_pat, timeout=8){ w_f.puts "\n\n\n" }
           end
           checkUser = `whoami`
 
           if ( checkUser.include?("tyler") )
             tylerCheckPassed = false
+          else 
+            tylerCheckPassed = true
           end
         end
       rescue 
@@ -69,36 +71,40 @@ class UserCheck < MessagePlugin
       end  
 
       # Check root next ... has a weak password
-      PTY.spawn("su - root" ) do |r_f,w_f,pid|
-        w_f.sync = true
-        r_f.expect(password_pat, timeout=2){ w_f.puts "root\n\n\n" }
-      end
-      checkUser = `whoami`
+      #PTY.spawn("runuser -u cpatriot su - " ) do |r_f,w_f,pid|
+        #w_f.sync = true
+        #r_f.expect(password_pat, timeout=8){ w_f.puts "root\n\n\n" }
+        #l=`tty`
+        #puts l
+      #end
+      #checkUser = `whoami`
 
-      if ( checkUser.include?("root") )
-        rootCheckPassed = false
-      else
-        rootCheckPassed = true
-      end
+      #if ( checkUser.include?("root") )
+        #rootCheckPassed = false
+      #else
+        #rootCheckPassed = true
+      #end
 
       begin 
         if Etc.getpwnam('jack')
           # Check jack next ... has a weak password
-          PTY.spawn("su - jack") do |r_f,w_f,pid|
+          PTY.spawn("/usr/sbin/runuser -u cpatriot su - jack") do |r_f,w_f,pid|
             w_f.sync = true
-            r_f.expect(password_pat, timeout=2){ w_f.puts "jack\n\n\n" }
+            r_f.expect(password_pat, timeout=8){ w_f.puts "jack\n\n\n" }
           end
           checkUser = `whoami`
   
           if ( checkUser.include?("jack") )
             jackCheckPassed = false
+          else
+            jackCheckPassed = true
           end
         end
       rescue 
         puts 'I am rescued.'  
       end  
 
-      if jackCheckPassed and rootCheckPassed and tylerCheckPassed and canBecomeRoot == false
+      if jackCheckPassed and tylerCheckPassed and canBecomeRoot == false
         @result['currentPoints']=10
         @result['status'] = @success + " Rectified all user passwords and /etc/sudoers.d/all file removed"
       else 
