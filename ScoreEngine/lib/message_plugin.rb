@@ -1,6 +1,5 @@
 # ./lib/message_plugin.rb
-#require './plugin'
-load './plugin.rb'
+require 'plugin'
 
 class MessagePlugin
   include Plugin
