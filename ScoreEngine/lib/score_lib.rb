@@ -1,5 +1,6 @@
 require 'fileutils'
 require 'message_plugin'
+require 'yaml'
 
 class ScoreEngine
 
@@ -19,6 +20,34 @@ class ScoreEngine
     @options = options
     options[:logfile] = File.expand_path(logfile) if logfile?   # daemonization might change CWD so expand any relative paths in advance
     options[:pidfile] = File.expand_path(pidfile) if pidfile?   # (ditto)
+
+    config_items=read_config(options[:conffile])
+
+    if !config_items.nil?
+       options[:pidfile] = File.expand_path(config_items[:pid_file]) if !config_items[:pid_file].nil?
+       options[:logfile] = File.expand_path(config_items[:log_file]) if !config_items[:log_file].nil?
+       @timeout = config_items[:timeout] if !config_items[:timeout].nil?
+    end
+  end
+
+
+  #
+  # @!method read_config
+  #
+  # @param config_name [String] Configuration file name
+  #
+  # @return [Collection] Returns the YAML collection of configuration items.
+  def read_config (filename)
+    if filename.nil?
+       # The file name should be in the default stop
+       filename="/etc/ScoreEngine/score-engine.conf"
+    end
+
+    begin
+      return YAML.load_file(filename)
+    rescue => exception
+      puts exception.message
+    end
   end
 
   def daemonize?
@@ -95,7 +124,7 @@ class ScoreEngine
       file.write("Total Points: #{totalPoints} out of #{maxPoints}\n")
       file.close
   
-      sleep(60)  
+      sleep($timeout)  
       rescue
       end
     end
