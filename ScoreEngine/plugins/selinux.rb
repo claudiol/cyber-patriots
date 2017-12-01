@@ -36,7 +36,6 @@ class SELinux < MessagePlugin
 
     # Check if SELinux is in enforce mode
     rc = `/usr/sbin/getenforce`
-    puts "RC = #{rc}"
 
     if rc.include? "Enforcing" and configOk == true
       @result['currentPoints']=10

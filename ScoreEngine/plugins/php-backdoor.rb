@@ -32,7 +32,7 @@ class PHPBackdoor < MessagePlugin
 
   def checkPhpFiles()
     # Check the config file
-    if File.exists?("/usr/local/bin/client.py") and File.exists?("/var/www/html/server.php")
+    if File.exist?("/usr/local/bin/client.py") and File.exist?("/var/www/html/server.php")
       filesRemoved = false
     else
       filesRemoved = true 

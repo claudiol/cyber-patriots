@@ -91,7 +91,7 @@ class ScoreEngine
 
     while !quit
 
-      dir = './plugins'
+      dir = '/opt/ScoreEngine/plugins'
       $LOAD_PATH.unshift(dir)
       Dir[File.join(dir, '*.rb')].each {|file| require File.basename(file) }
 
@@ -107,10 +107,10 @@ class ScoreEngine
       maxPoints=0
       begin
       file=File.open("/var/www/html/index.html", 'w+') 
+      file.write("<title>Cyber Patriots Apache HTTP Server on Fedora</title>\n")
+      file.write("<h1>Cyber Patriots Scoring Engine</h1>")
       pluginResults.each do | key, value |
       
-        file.write("<title>Cyber Patriots Apache HTTP Server on Fedora</title>\n")
-        file.wrire("<h1>Cyber Patriots Scoring Engine</h1>")
         file.write("<pre>\n")
         file.write( "    Plugin Name: #{key} \n")
         file.write( "    Description: #{value['description']}\n")
@@ -124,7 +124,7 @@ class ScoreEngine
       file.write("Total Points: #{totalPoints} out of #{maxPoints}\n")
       file.close
   
-      sleep($timeout)  
+      sleep(60)
       rescue
       end
     end
@@ -139,7 +139,7 @@ class ScoreEngine
 #    exit if fork
 #    Process.setsid
 #    exit if fork
-    Dir.chdir "/tmp/ScoreEngine"
+    Dir.chdir "/opt/ScoreEngine"
   end
 
   def redirect_output

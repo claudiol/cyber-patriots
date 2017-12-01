@@ -38,7 +38,7 @@ class LoginDefs < MessagePlugin
 
     #puts key
     #puts value
-    #puts value.delete!('\\\n"]')
+    value.delete!('\\\n"]')
 
     # Check if the value has a reasonable value.
     if value.to_i > 180

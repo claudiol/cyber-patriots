@@ -1,5 +1,5 @@
 # ./plugins/hello_world.rb
-load 'message_plugin.rb'
+require 'message_plugin'
 
 class Sudoers < MessagePlugin
 
@@ -27,7 +27,7 @@ class Sudoers < MessagePlugin
 
   def checkSudoers()
     # Check the config file
-    if !File.exists?("/etc/sudoers.d/all")
+    if !File.exist?("/etc/sudoers.d/all")
       allFileExists = true 
     else
       allFileExists = false

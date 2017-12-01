@@ -1,5 +1,5 @@
 # ./plugins/hello_world.rb
-load 'message_plugin.rb'
+require 'message_plugin' #load 'message_plugin.rb'
 require 'pty'
 require 'expect'
 require 'etc'
@@ -23,6 +23,7 @@ class UserCheck < MessagePlugin
     @result['status']=""
     @result['currentPoints']=0
     @result['totalPoints']=10
+
   end
   def get_results
     return checkUsers()
@@ -31,7 +32,7 @@ class UserCheck < MessagePlugin
   def checkUsers()
 
     # Check the config file
-    if File.exists?("/etc/sudoers.d/all")
+    if File.exist?("/etc/sudoers.d/all")
       canBecomeRoot = true 
     else
       canBecomeRoot = false
@@ -48,7 +49,7 @@ class UserCheck < MessagePlugin
     password_pat    = %r/^\s*Password:/io
 
 
-    if canBecomeRoot == false
+    if canBecomeRoot == false and $taskCompleted == false
       
       begin
         if Etc.getpwnam('tyler')
@@ -107,13 +108,19 @@ class UserCheck < MessagePlugin
       if jackCheckPassed and tylerCheckPassed and canBecomeRoot == false
         @result['currentPoints']=10
         @result['status'] = @success + " Rectified all user passwords and /etc/sudoers.d/all file removed"
+        $taskCompleted=true
       else 
         @result['currentPoints']=0
         @result['status'] = @error + " 'all' file exists in /etc/sudoers.d directory and weak passwords still in place for users tyle, jack and root"
       end
     else
-        @result['currentPoints']=0
-        @result['status'] = @error + " 'all' file exists in /etc/sudoers.d directory and weak passwords still in place for users tyle, jack and root"
+        if $taskCompleted 
+          @result['currentPoints']=10
+          @result['status'] = @success + " Rectified all user passwords and /etc/sudoers.d/all file removed"
+        else
+          @result['currentPoints']=0
+          @result['status'] = @error + " 'all' file exists in /etc/sudoers.d directory and weak passwords still in place for users tyle, jack and root"
+        end
     
     end
 

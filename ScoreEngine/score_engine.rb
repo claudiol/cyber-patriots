@@ -2,6 +2,8 @@
 
 require 'optparse'
 
+$taskCompleted = false
+
 options        = {}
 version        = "1.0.0"
 daemonize_help = "run daemonized in the background (default: false)"
@@ -41,6 +43,7 @@ op.parse!(ARGV)
 require 'score_lib'
 begin
   ScoreEngine.new(options).run!
-rescue 
+rescue Exception => ex
   puts "Exception in score_engine.rb"
+  puts ex.message
 end
