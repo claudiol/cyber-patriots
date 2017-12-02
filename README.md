@@ -1,3 +1,21 @@
+# Workstation Requirements
+
+* Fedora 26/27
+* Ansible Version 2.3 or above
+* Python Version 2 packages
+* Rubygems Version 2.6 or above
+
+# Ansible Playbook
+The Ansible playbook will install all the necessary packages in the Fedora 26/27 image.  
+
+# ScoreEngine gem
+The ScoreEngine gem will be installed by the Ansible Playbook in the target Cyber Patriots Fedora image.  The ScoreEngine will be installed in the /opt/gems/ScoreEngine-0.1 directory.  There is a configuration file under the /opt/gems/ScoreEngine-0.1/conf/score-engine.conf that can be modified depending on your target.  This is a simple scoring engine so it should work as-is.
+
+The ScoreEngine will run as a service under systemd.  You can start/stop/status/restart the engine using systemctl start/stop/status/restart score-engine.service.
+
+The Score engine will generate a simple HTML index.html file under the /var/www/html/index.html.  You can access the score using your browser on the following URL: http://localhost
+
+
 # Setup Instructions
 
 1. Download Fedora 26/27
@@ -194,3 +212,9 @@ PLAY RECAP *********************************************************************
 [root@fedora26 roles]# 
 ````
 12. Now reboot the VM
+
+# Questions
+
+If you have any questions please feel free to ping me at lester@redhat.com
+
+
