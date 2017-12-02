@@ -1,0 +1,54 @@
+1f6c961 (HEAD -> claudiol-scoring-engine, origin/master, origin/claudiol-scoring-engine, master) Updated ansible run in README
+c9df532 Fixed ssh-protocol check issue
+5a55691 New version of GEM
+35beda5 score_lib.rb bug fix
+22f0616 New version
+7c6df5c Changes to score_lib.rb and score-engine.service
+ecb5da8 New GEM changes
+0b4f14a Deleted ScoreEngine gem
+81d1bfa New version of ScoreEngine
+35fec67 Using the new rootdir variable
+6896b88 Added new config variable for ScoreEngine
+e8b5755 Added tasks to install ScoreEngine
+e77dd75 Delete GEM
+0c574dd Moved ScoreEngine gem and added Ansible tasks to copy and install gem
+2477e54 Created GEMSpec for ScoreEngine
+d5361ad Fixed issued with Score Engine ... lots
+adcec9d Added rescue block
+a87b769 Added code to read configuration file
+bd8ee45 New configuration file for Cyber Patriot score engine
+8cbdb5c New ScoreEngine.tar version
+d9b6e45 Commented the root user check for now.  Need to figure out a good way to check weak password
+6e0dd22 Changed directory for plugins to /tmp
+04671b4 Added title and h1 header
+857535c Added score engine daemon
+17b4be4 New version of ScoreEngine
+5ec04eb Added timeout argument to expect calls
+a23281e New version
+b9f14fa Added password file to .gitignore file.
+bca2fde Added checkUsers plugin
+f6f3499 New version
+b9721c8 Fix dir issue in php file
+d413de9 New ScoringEngine
+8fe5fe1 Fixed a few bugs in the plugins and added running total
+29ab157 Added distribution directory
+787c06e Added ruby packages to install
+fa90eb2 Deleted original plugin files
+399e21c Commit initial Ruby ScoreEnfine
+cd11471 Added rule to .gitignore
+1933a0c First iteration of the Scoring Engine implemented in Ruby using Plugins
+bfe1084 Re-ordered the tasks and moved the SELinux to the end
+ade688c Changed to use dnf module since it's fedora
+74d8c04 initial src commit
+f2061cb Added Scrogin engine cpp code
+f60b542 Added edit of the inventory file
+af2a48f Added line numbers
+5bfd682 Added tip syntax
+680610c Added vars_files to include the encrypted password.yml file in the playbook
+1afca72 Added additional tasks to check ssh key, generate ssh key and performa a yum update on the Cyber Patriot machine
+49c4d62 Example inventory file for Ansible
+94e3ed2 Added new steps to README
+d8c1e0e Pushed the ssh_config file to the end of the playbook
+eb33886 Added cyber-patriot group to inventory file
+0ea19a4 Added hash for root password change
+7ed46e0 Initial commit for cyber-patriots
