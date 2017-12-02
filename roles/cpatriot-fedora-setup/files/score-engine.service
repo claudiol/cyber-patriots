@@ -4,7 +4,7 @@ After=syslog.target network.target auditd.service sshd.service
 
 [Service]
 #EnvironmentFile=/etc/sysconfig/sshd
-ExecStart=/usr/bin/ruby -I/opt/gems/ScoreEngine/lib /opt/gems/ScoreEngine/score_engine.rb --daemonize --pid /var/log/score-engine.pid --log /var/log/score-engine.log
+ExecStart=/usr/bin/ruby -I/opt/gems/ScoreEngine/lib /opt/gems/ScoreEngine/score_engine.rb --daemonize --config /opt/gems/ScoreEngine-0.1/conf/score-engine.conf --pid /var/log/score-engine.pid --log /var/log/score-engine.log
 ExecReload=/bin/kill -HUP $MAINPID
 KillMode=process
 Restart=on-failure
