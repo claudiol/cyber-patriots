@@ -82,93 +82,114 @@ localhost ansible_connection=local
 11. From the **cyber-patriots* subdirectory run the  cpatriot-fedora-setup Ansible role from your machine like so:
 
 ````
-root@fedora26 roles]# ansible-playbook -i ./inventory --ask-vault-pass main.yml 
+[root@fedora26 roles]# ansible-playbook --ask-vault-pass main.yml 
 Vault password: 
 
-PLAY [all] ***************************************************************************
+PLAY [all] *********************************************************************
 
-TASK [cpatriot-fedora-setup : Checking for ssh key existence] ************************
+TASK [cpatriot-fedora-setup : Checking for ssh key existence] ******************
 ok: [192.168.124.75]
 
-TASK [cpatriot-fedora-setup : Generating ssh key for root] ***************************
+TASK [cpatriot-fedora-setup : Generating ssh key for root] *********************
 skipping: [192.168.124.75]
 
-TASK [cpatriot-fedora-setup : Add ssh key] *******************************************
+TASK [cpatriot-fedora-setup : Add ssh key] *************************************
 changed: [192.168.124.75] => (item=192.168.124.75)
 
-TASK [cpatriot-fedora-setup : Cleaning yum cache] ************************************
+TASK [cpatriot-fedora-setup : Cleaning yum cache] ******************************
  [WARNING]: Consider using yum module rather than running yum
 
 changed: [192.168.124.75]
 
-TASK [cpatriot-fedora-setup : Refreshing yum cache] **********************************
+TASK [cpatriot-fedora-setup : Refreshing yum cache] ****************************
 changed: [192.168.124.75]
 
-TASK [cpatriot-fedora-setup : Adding libselinux python package] **********************
+TASK [cpatriot-fedora-setup : Adding libselinux python package] ****************
 changed: [192.168.124.75]
 
-TASK [cpatriot-fedora-setup : Disabling SELinux] *************************************
- [WARNING]: SELinux state temporarily changed from 'enforcing' to 'permissive'. State
-change will take effect next reboot.
-
+TASK [cpatriot-fedora-setup : Stop firewalld service] **************************
 changed: [192.168.124.75]
 
-TASK [cpatriot-fedora-setup : Stop firewalld service] ********************************
+TASK [cpatriot-fedora-setup : Adding python2-devel package] ********************
 changed: [192.168.124.75]
 
-TASK [cpatriot-fedora-setup : Adding python2-devel package] **************************
-changed: [192.168.124.75]
-
-TASK [cpatriot-fedora-setup : Adding httpd package] **********************************
+TASK [cpatriot-fedora-setup : Adding httpd package] ****************************
 ok: [192.168.124.75]
 
-TASK [cpatriot-fedora-setup : Enabling httpd] ****************************************
+TASK [cpatriot-fedora-setup : Enabling httpd] **********************************
 changed: [192.168.124.75]
 
-TASK [cpatriot-fedora-setup : Adding scap-workbench package] *************************
+TASK [cpatriot-fedora-setup : Adding scap-workbench package] *******************
 changed: [192.168.124.75]
 
-TASK [cpatriot-fedora-setup : Adding openscap security guide package] ****************
+TASK [cpatriot-fedora-setup : Adding openscap security guide package] **********
 ok: [192.168.124.75]
 
-TASK [cpatriot-fedora-setup : Adding php package] ************************************
+TASK [cpatriot-fedora-setup : Adding php package] ******************************
 changed: [192.168.124.75]
 
-TASK [cpatriot-fedora-setup : Inserting all sudoers file] ****************************
+TASK [cpatriot-fedora-setup : Adding ruby package] *****************************
 changed: [192.168.124.75]
 
-TASK [cpatriot-fedora-setup : Inserting php backdoor files] **************************
+TASK [cpatriot-fedora-setup : Adding ruby package] *****************************
 changed: [192.168.124.75]
 
-TASK [cpatriot-fedora-setup : Inserting php backdoor files] **************************
+TASK [cpatriot-fedora-setup : Inserting all sudoers file] **********************
 changed: [192.168.124.75]
 
-TASK [cpatriot-fedora-setup : Changing root password ...] ****************************
+TASK [cpatriot-fedora-setup : Inserting php backdoor files] ********************
 changed: [192.168.124.75]
 
-TASK [cpatriot-fedora-setup : Changing login defs file ...] **************************
+TASK [cpatriot-fedora-setup : Inserting php backdoor files] ********************
+changed: [192.168.124.75]
+
+TASK [cpatriot-fedora-setup : Changing root password ...] **********************
+changed: [192.168.124.75]
+
+TASK [cpatriot-fedora-setup : Changing login defs file ...] ********************
 ok: [192.168.124.75]
 
-TASK [cpatriot-fedora-setup : Creating Leon user] ************************************
+TASK [cpatriot-fedora-setup : Creating Leon user] ******************************
 changed: [192.168.124.75]
 
-TASK [cpatriot-fedora-setup : Inserting all sudoers file] ****************************
+TASK [cpatriot-fedora-setup : Inserting all sudoers file] **********************
 changed: [192.168.124.75]
 
-TASK [cpatriot-fedora-setup : Creating jack user] ************************************
+TASK [cpatriot-fedora-setup : Creating jack user] ******************************
 changed: [192.168.124.75]
 
-TASK [cpatriot-fedora-setup : Creating tyler user] ***********************************
+TASK [cpatriot-fedora-setup : Creating tyler user] *****************************
 changed: [192.168.124.75]
 
-TASK [cpatriot-fedora-setup : Deleting password for tyler] ***************************
+TASK [cpatriot-fedora-setup : Deleting password for tyler] *********************
 changed: [192.168.124.75]
 
-TASK [cpatriot-fedora-setup : Inserting sshd config backdoor file] *******************
+TASK [cpatriot-fedora-setup : Inserting sshd config backdoor file] *************
 changed: [192.168.124.75]
 
-PLAY RECAP ***************************************************************************
-192.168.124.75             : ok=24   changed=20   unreachable=0    failed=0   
+TASK [cpatriot-fedora-setup : upgrade all packages] ****************************
+changed: [192.168.124.75]
+
+TASK [cpatriot-fedora-setup : Disabling SELinux] *******************************
+ [WARNING]: SELinux state temporarily changed from 'enforcing' to 'permissive'.
+State change will take effect next reboot.
+
+changed: [192.168.124.75]
+
+TASK [cpatriot-fedora-setup : Copying simple ScoreEngine] **********************
+changed: [192.168.124.75]
+
+TASK [cpatriot-fedora-setup : Installing simple ScoreEngine] *******************
+changed: [192.168.124.75]
+
+TASK [cpatriot-fedora-setup : Installing simple ScoreEngine service file] ******
+changed: [192.168.124.75]
+
+TASK [cpatriot-fedora-setup : Enabling simple ScoreEngine service] *************
+changed: [192.168.124.75]
+
+PLAY RECAP *********************************************************************
+192.168.124.75             : ok=31   changed=27   unreachable=0    failed=0   
 
 [root@fedora26 roles]# 
 ````
