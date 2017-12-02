@@ -16,7 +16,7 @@ The ScoreEngine will run as a service under systemd.  You can start/stop/status/
 The Score engine will generate a simple HTML index.html file under the /var/www/html/index.html.  You can access the score using your browser on the following URL: http://localhost
 
 
-# Setup Instructions
+# VM Setup Instructions
 
 1. Download Fedora 26/27
 https://getfedora.org/en/workstation/download/
@@ -24,7 +24,8 @@ https://getfedora.org/en/workstation/download/
     TIP: Press on the Download ICON at the top of the page to download the ISO file.
 
 2. Install Fedora 26/27
-  - Nothing special.  Use the ISO file since it's more familiar. Create a Cyber Patriot (cpatriot) user id and assign the password "cyber-patriot" to both root and the Cyber Patriot user.
+  * You can create a Fedora VM using VMWare Workstation, VMWare Fusion, virt-manager on Linux
+  * Nothing special.  Use the ISO file since it's more familiar. Create a Cyber Patriot (cpatriot) user id and assign the password "cyber-patriot" to both root and the Cyber Patriot user.
 
 3. Make sure sshd is running on the VM. Login locally through the VM console as root, open a terminal and run the following commands:
    systemctl enable sshd
