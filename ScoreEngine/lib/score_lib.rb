@@ -21,12 +21,12 @@ class ScoreEngine
     options[:logfile] = File.expand_path(logfile) if logfile?   # daemonization might change CWD so expand any relative paths in advance
     options[:pidfile] = File.expand_path(pidfile) if pidfile?   # (ditto)
 
-    config_items=read_config(options[:conffile])
+    @config_items=read_config("#{options[:conffile]}")
 
-    if !config_items.nil?
-       options[:pidfile] = File.expand_path(config_items[:pid_file]) if !config_items[:pid_file].nil?
-       options[:logfile] = File.expand_path(config_items[:log_file]) if !config_items[:log_file].nil?
-       @timeout = config_items[:timeout] if !config_items[:timeout].nil?
+    if !@config_items.nil?
+       options[:pidfile] = File.expand_path(@config_items['pid_file']) if !@config_items['pid_file'].nil?
+       options[:logfile] = File.expand_path(@config_items['log_file']) if !@config_items['log_file'].nil?
+       @timeout = @config_items['timeout'] if !@config_items['timeout'].nil?
     end
   end
 
@@ -37,7 +37,7 @@ class ScoreEngine
   # @param config_name [String] Configuration file name
   #
   # @return [Collection] Returns the YAML collection of configuration items.
-  def read_config (filename)
+  def read_config(filename)
     if filename.nil?
        # The file name should be in the default stop
        filename="/etc/ScoreEngine/score-engine.conf"
@@ -91,7 +91,7 @@ class ScoreEngine
 
     while !quit
 
-      dir = '/opt/ScoreEngine/plugins'
+      dir = "#{@config_items['rootdir']/plugins"
       $LOAD_PATH.unshift(dir)
       Dir[File.join(dir, '*.rb')].each {|file| require File.basename(file) }
 
@@ -139,7 +139,7 @@ class ScoreEngine
 #    exit if fork
 #    Process.setsid
 #    exit if fork
-    Dir.chdir "#{options[:rootdir]}" 
+    Dir.chdir "#{@config_items['rootdir']}" 
   end
 
   def redirect_output
