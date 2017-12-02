@@ -139,7 +139,7 @@ class ScoreEngine
 #    exit if fork
 #    Process.setsid
 #    exit if fork
-    Dir.chdir "/opt/ScoreEngine"
+    Dir.chdir "#{options[:rootdir]}" 
   end
 
   def redirect_output
