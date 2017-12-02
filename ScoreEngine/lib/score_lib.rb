@@ -91,7 +91,7 @@ class ScoreEngine
 
     while !quit
 
-      dir = "#{@config_items['rootdir']/plugins"
+      dir = "#{@config_items['rootdir']}/plugins"
       $LOAD_PATH.unshift(dir)
       Dir[File.join(dir, '*.rb')].each {|file| require File.basename(file) }
 
