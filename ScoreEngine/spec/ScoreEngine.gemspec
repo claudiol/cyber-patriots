@@ -9,5 +9,5 @@ Gem::Specification.new do |s|
   s.files       = ["lib/score_lib.rb", "lib/message_plugin.rb", "lib/plugin.rb", "plugins/become-user.rb", "plugins/login-defs-check.rb", "plugins/selinux.rb", "plugins/sudoers.rb", "plugins/firewalld.rb", "plugins/php-backdoor.rb", "plugins/ssh-protocol.rb", "conf/score-engine.conf", "score_engine.rb"]
   s.homepage    =
     'https://github.com/claudiol/cyber-patriots'
-  s.license       = 'GPL'
+  s.license       = 'LGPL'
 end
