@@ -13,7 +13,7 @@ The ScoreEngine gem will be installed by the Ansible Playbook in the target Cybe
 
 The ScoreEngine will run as a service under systemd.  You can start/stop/status/restart the engine using systemctl start/stop/status/restart score-engine.service.
 
-The Score engine will generate a simple HTML index.html file under the /var/www/html/index.html.  You can access the score using your browser on the following URL: http://localhost
+The Score engine will generate a simple HTML index.html file under the /var/www/html/index.html.  Students can access the score using your browser on the following URL on their Fedora image: http://localhost
 
 
 # VM Setup Instructions
