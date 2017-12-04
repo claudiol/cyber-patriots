@@ -26,6 +26,11 @@
   with_items: 
     - "{{ groups['cyber-patriot'] }}"
 
+# Let's set the hostname
+- name: Setting the hostname
+  hostname:
+    name: cyber-patriot.afa.local
+
 # Yum clean all
 - name: Cleaning yum cache
   command: yum clean all
