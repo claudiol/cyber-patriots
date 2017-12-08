@@ -22,6 +22,7 @@
   expect:
     command: 'ssh-copy-id {{ item }}'
     responses:
+      (?i)yes: "yes"
       (?i)password: "{{ r_password }}"
   with_items: 
     - "{{ groups['cyber-patriot'] }}"
