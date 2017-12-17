@@ -177,8 +177,8 @@
     mode: 0755
 
 # Upgrade all packages
-- name: upgrade all packages
-  dnf: name=* state=latest
+#- name: upgrade all packages
+#  dnf: name=* state=latest
 
 # Disable SELinux
 - name: Disabling SELinux
@@ -196,12 +196,36 @@
 - name: Installing simple ScoreEngine
   command: gem install --local -i /opt /tmp/ScoreEngine-0.1.gem
 
-- name: Installing simple ScoreEngine service file
+- name: Creating config directory for simple ScoreEngine
+  file:
+    path: /etc/ScoreEngine
+    state: directory
+    mode: 0755
+
+- name: Installing simple ScoreEngine config file
+  copy:
+    src: score-engine.conf
+    dest: /etc/ScoreEngine/score-engine.conf
+    mode: 0755
+
+- name: Copying ScoreEngine config 
   copy:
     src: score-engine.service
     dest: /etc/systemd/system/score-engine.service
     mode: 0755
-  
+
+- name: Applying ACL permissions
+  acl:
+    path: /opt/gems/ScoreEngine-0.1
+    entry: "default:other::---"
+    state: present
+
+- name: Applying ACL permissions
+  acl:
+    path: /opt/gems/ScoreEngine-0.1
+    entry: "other::---"
+    state: present
+
 - name: Enabling simple ScoreEngine service 
   command: /usr/bin/systemctl enable score-engine 
 
