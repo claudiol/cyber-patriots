@@ -1,3 +1,4 @@
 src/*.o
 src/output
 roles/cpatriot-fedora-setup/defaults/password.yml
+roles/inventory
