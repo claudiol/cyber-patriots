@@ -45,6 +45,14 @@
   dnf: 
     name: libselinux-python
     state: present
+  when: os_type == "fedora"
+
+# Add libselinux-python package
+- name: Adding libselinux python package
+  yum: 
+    name: libselinux-python
+    state: present
+  when: os_type == "centos"
 
 
 # stop firewalld
@@ -60,11 +68,25 @@
   dnf: 
     name: python2-devel
     state: present
+  when: os_type == "fedora"
+
+- name: Adding python2-devel package
+  yum: 
+    name: python2-devel
+    state: present
+  when: os_type == "centos"
 
 - name: Adding httpd package
   dnf: 
     name: httpd
     state: present
+  when: os_type == "fedora"
+
+- name: Adding httpd package
+  yum: 
+    name: httpd
+    state: present
+  when: os_type == "centos"
 
 - name: Enabling httpd 
   service:
@@ -75,26 +97,61 @@
   dnf: 
     name: scap-workbench
     state: present
+  when: os_type == "fedora"
+
+- name: Adding scap-workbench package
+  yum: 
+    name: scap-workbench
+    state: present
+  when: os_type == "centos"
 
 - name: Adding openscap security guide package
   dnf: 
     name: scap-security-guide
     state: present
+  when: os_type == "fedora"
+
+- name: Adding openscap security guide package
+  yum: 
+    name: scap-security-guide
+    state: present
+  when: os_type == "centos"
 
 - name: Adding php package
   dnf: 
     name: php 
     state: present
+  when: os_type == "fedora"
+
+- name: Adding php package
+  yum: 
+    name: php 
+    state: present
+  when: os_type == "centos"
 
 - name: Adding ruby package
   dnf: 
     name: ruby
     state: present
+  when: os_type == "fedora"
+
+- name: Adding ruby package
+  yum: 
+    name: ruby
+    state: present
+  when: os_type == "centos"
 
 - name: Adding ruby package
   dnf: 
     name: rubygem-json
     state: present
+  when: os_type == "fedora"
+
+- name: Adding ruby package
+  yum: 
+    name: rubygem-json
+    state: present
+  when: os_type == "centos"
 
 # Copying sudoers ALL file
 - name: Inserting all sudoers file
@@ -175,6 +232,14 @@
     src: ssh_protocol.conf 
     dest: /etc/ssh/ssh_config.d/ssh_protocol.conf
     mode: 0755
+  when: os_type == "fedora"
+
+- name: Inserting sshd config backdoor file
+  lineinfile:
+    path: /etc/ssh/ssh_config
+    insertafter: "GSSAPIAuthetication yes" 
+    line: "Protocol 1"
+  when: os_type == "centos"
 
 # Upgrade all packages
 #- name: upgrade all packages
