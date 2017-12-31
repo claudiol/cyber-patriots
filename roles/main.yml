@@ -2,8 +2,11 @@
 - hosts: all
   gather_facts: no
 
+  vars:
+    - os_type: centos
+
   vars_files:
-    - cpatriot-fedora-setup/defaults/password.yml
+    - defaults/password.yml
 
   roles:
-    - cpatriot-fedora-setup
+    - cpatriot-{{ os_type }}-setup

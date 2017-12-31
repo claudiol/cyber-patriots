@@ -1,0 +1,236 @@
+---
+
+- name: Checking for ssh key existence 
+  connection: local
+  stat:
+    path: /root/.ssh/id_rsa.pub
+  register: p
+
+#
+# Generate key if it does not exist.  It will not override existing key
+#
+- name: Generating ssh key for root
+  connection: local
+  user:
+    name: root
+    generate_ssh_key: yes
+  when: p.stat.exists == False
+
+# Copy ssh id
+- name: Add ssh key
+  connection: local
+  expect:
+    command: 'ssh-copy-id {{ item }}'
+    responses:
+      (?i)yes: "yes"
+      (?i)password: "{{ r_password }}"
+  with_items: 
+    - "{{ groups['cyber-patriot'] }}"
+
+# Let's set the hostname
+- name: Setting the hostname
+  hostname:
+    name: cyber-patriot.afa.local
+
+# Yum clean all
+- name: Cleaning yum cache
+  command: yum clean all
+
+# Yum repolist 
+- name: Refreshing yum cache
+  command: yum repolist
+
+# Add libselinux-python package
+- name: Adding libselinux python package
+  yum: 
+    name: libselinux-python
+    state: present
+  when: os_type == "centos"
+
+
+# stop firewalld
+# Disable firewalld
+- name: Stop firewalld service 
+  service:
+    name: firewalld
+    enabled: no
+    state: stopped
+
+# Add packages
+- name: Adding python2-devel package
+  yum: 
+    name: python2-devel
+    state: present
+  when: os_type == "centos"
+
+- name: Adding httpd package
+  yum: 
+    name: httpd
+    state: present
+  when: os_type == "centos"
+
+- name: Enabling httpd 
+  service:
+    name: httpd
+    enabled: yes
+
+- name: Adding scap-workbench package
+  yum: 
+    name: scap-workbench
+    state: present
+  when: os_type == "centos"
+
+- name: Adding openscap security guide package
+  yum: 
+    name: scap-security-guide
+    state: present
+  when: os_type == "centos"
+
+- name: Adding php package
+  yum: 
+    name: php 
+    state: present
+  when: os_type == "centos"
+
+- name: Adding ruby package
+  yum: 
+    name: ruby
+    state: present
+  when: os_type == "centos"
+
+- name: Adding ruby package
+  yum: 
+    name: rubygem-json
+    state: present
+  when: os_type == "centos"
+
+# Copying sudoers ALL file
+- name: Inserting all sudoers file
+  copy:
+    src: all
+    dest: /etc/sudoers.d/all
+
+# Copying php backdoor files
+- name: Inserting php backdoor files
+  copy:
+    src: php-sh/client.py
+    dest: /usr/local/bin/client.py
+    mode: 0755
+
+# Copying php backdoor files
+- name: Inserting php backdoor files
+  copy:
+    src: php-sh/server.php
+    dest: /var/www/html/server.php
+    mode: 0755
+
+# Changing root password
+- name: Changing root password ...
+  user:
+    name: root
+    password: "$1$mP2tXbdv$64IXwnNqA9MO17xRK9mLt/"
+    update_password: always
+
+# Changing /etc/login.defs password max days 
+- name: Changing login defs file ...
+  lineinfile:
+    path: /etc/login.defs
+    regexp: "^PASS_MAX_DAYS"
+    line: "PASS_MAX_DAYS\t99999"
+
+# Creating Users
+# Authorized admin
+# password = cyberiscool
+- name: Creating Leon user
+  user:
+    name: leon
+    groups: adm
+    password: '$1$TPmvsJo5$oBI2PYP6zntIZRhpJf2fa/'
+    shell: /bin/bash
+     
+# Copying scenario file to leon
+- name: Inserting all sudoers file
+  copy:
+    src: scenario
+    dest: /home/leon/scenario
+
+# Creating jack user
+# password = jack
+# This needs to be remediated by the user
+     
+- name: Creating jack user
+  user:
+    name: jack
+    groups: adm
+    password: '$1$ETES2jlq$Mw0oKZX7p1B7W.q7fJyJI0'
+    shell: /bin/bash
+
+# Creating tyler user
+# password = empty
+# This needs to be remediated by the user
+- name: Creating tyler user
+  user:
+    name: tyler 
+    groups: adm
+    shell: /bin/bash
+
+- name: Deleting password for tyler
+  command: /usr/bin/passwd -d tyler
+
+# Copying ssh config file
+- name: Inserting sshd config backdoor file
+  lineinfile:
+    path: /etc/ssh/ssh_config
+    insertafter: "GSSAPIAuthetication yes" 
+    line: "Protocol 1"
+  when: os_type == "centos"
+
+# Disable SELinux
+- name: Disabling SELinux
+  selinux:
+    policy: disabled
+    state: disabled
+
+# Install ScoreEngine
+- name: Copying simple ScoreEngine
+  copy:
+    src: ScoreEngine-0.1.gem
+    dest: /tmp
+    mode: 0755
+  
+- name: Installing simple ScoreEngine
+  command: gem install --local -i /opt /tmp/ScoreEngine-0.1.gem
+
+- name: Creating config directory for simple ScoreEngine
+  file:
+    path: /etc/ScoreEngine
+    state: directory
+    mode: 0755
+
+- name: Installing simple ScoreEngine config file
+  copy:
+    src: score-engine.conf
+    dest: /etc/ScoreEngine/score-engine.conf
+    mode: 0755
+
+- name: Copying ScoreEngine config 
+  copy:
+    src: score-engine.service
+    dest: /etc/systemd/system/score-engine.service
+    mode: 0755
+
+- name: Applying ACL permissions
+  acl:
+    path: /opt/gems/ScoreEngine-0.1
+    entry: "default:other::---"
+    state: present
+
+- name: Applying ACL permissions
+  acl:
+    path: /opt/gems/ScoreEngine-0.1
+    entry: "other::---"
+    state: present
+
+- name: Enabling simple ScoreEngine service 
+  command: /usr/bin/systemctl enable score-engine 
+
