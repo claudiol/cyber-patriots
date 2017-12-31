@@ -8,7 +8,7 @@
 # Ansible Playbook
 The Ansible playbook will install all the necessary packages in the Fedora 26/27 image.  
 
-Update: Now CentOS is also supported! Change the roles/cpatriot-fedora-setup/defaults/main.yml files os_type: centos to configure a CentOS image.
+Update: Now CentOS is also supported! Change the roles/main.yml file variable os_type: centos to configure a CentOS image. Valid values are: centos, fedora
 
 # ScoreEngine gem
 The ScoreEngine gem will be installed by the Ansible Playbook in the target Cyber Patriots Fedora image.  The ScoreEngine will be installed in the /opt/gems/ScoreEngine-0.1 directory.  There is a configuration file under the /opt/gems/ScoreEngine-0.1/conf/score-engine.conf that can be modified depending on your target.  This is a simple scoring engine so it should work as-is.
