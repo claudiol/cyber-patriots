@@ -35,6 +35,14 @@ class SshProtocol < MessagePlugin
       end 
     end
 
+    if File.exists?("/etc/ssh/ssh_config")
+      if File.readlines("/etc/ssh/ssh_config").grep(/^Protocol 2/).size > 0
+        sshProtocolOk = true 
+      else
+        sshProtocolOk = false
+      end 
+    end
+
     # TODO: Check the sudoers file as well
 
     if sshProtocolOk
